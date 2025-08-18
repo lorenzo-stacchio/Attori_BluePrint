@@ -9,8 +9,12 @@ ABasicItem::ABasicItem()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
+	//this function return a pointer!
+	ItemMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ItemMeshComponent"));
 
+	//ora assegniamo la mesh al componente root, così da sostituire il componente root di default (che è un SceneComponent)
+
+	RootComponent = ItemMesh;
 }
 
 //PLEASE NOTE THAT C++ CODE IS CALLED AFTER BLUEPRINT CODE
