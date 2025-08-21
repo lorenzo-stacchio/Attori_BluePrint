@@ -41,4 +41,8 @@ void UMyCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	GroundSpeed = UKismetMathLibrary::VSizeXY(OwningCharacterMovement->Velocity);
 
+	//if is falling
+	IsFalling = OwningCharacterMovement->IsFalling();
+
+
 }
