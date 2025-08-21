@@ -28,7 +28,7 @@ AMyCharacter::AMyCharacter()
 
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
 	ViewCamera->SetupAttachment(SpringArmComp);
-
+	ViewCamera->bUsePawnControlRotation = true; // Camera will rotate with the controller
 	
 }
 
