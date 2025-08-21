@@ -6,12 +6,26 @@
 #include "Animation/AnimInstance.h"
 #include "MyCharacterAnimInstance.generated.h"
 
-/**
- * 
- */
+class AMyCharacter;
+class UCharacterMovementComponent;
+
 UCLASS()
 class ATTORI_BLUEPRINT_API UMyCharacterAnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 	
+public:
+
+	virtual void NativeInitializeAnimation() override;
+	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
+
+	UPROPERTY(BlueprintReadOnly)
+	AMyCharacter* OwningCharacter;
+
+
+	UPROPERTY(BlueprintReadOnly, Category = "Movement")
+	UCharacterMovementComponent* OwningCharacterMovement;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Movement")	
+	float GroundSpeed;
 };
