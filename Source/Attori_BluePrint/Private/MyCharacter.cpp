@@ -4,6 +4,7 @@
 #include "MyCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -15,6 +16,8 @@ AMyCharacter::AMyCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
+
+	GetCharacterMovement()->bOrientRotationToMovement = true; // Character will rotate to the direction of movement
 
 	// Create and attach the spring arm component
 
@@ -49,8 +52,11 @@ void AMyCharacter::MoveForward(float offset)
 	UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
 	if (Controller && (offset != 0.f)) {
-		FVector Forward = GetActorForwardVector();
-		AddMovementInput(Forward, offset);
+		const FRotator ControlRotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+		// Get the forward vector based on the control rotation
+		const FVector Direction = FRotationMatrix(YawRotation).GetScaledAxis(EAxis::X);
+		AddMovementInput(Direction, offset);
 	}
 }
 
@@ -60,8 +66,11 @@ void AMyCharacter::MoveRight(float offset)
 	UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
 	if (Controller && (offset != 0.f)) {
-		FVector Right = GetActorRightVector();
-		AddMovementInput(Right, offset);
+		const FRotator ControlRotation = Controller->GetControlRotation();
+		const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+		// Get the right vector based on the control rotation
+		const FVector Direction = FRotationMatrix(YawRotation).GetScaledAxis(EAxis::Y);
+		AddMovementInput(Direction, offset);
 	}
 }
 
