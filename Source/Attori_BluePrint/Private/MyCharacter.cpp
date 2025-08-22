@@ -49,7 +49,7 @@ void AMyCharacter::Tick(float DeltaTime)
 void AMyCharacter::MoveForward(float offset)
 {
 	// Move the character forward based on the input offset
-	UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
+	//UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
 	if (Controller && (offset != 0.f)) {
 		const FRotator ControlRotation = Controller->GetControlRotation();
@@ -63,7 +63,7 @@ void AMyCharacter::MoveForward(float offset)
 void AMyCharacter::MoveRight(float offset)
 {
 	// Move the character forward based on the input offset
-	UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
+	//UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
 	if (Controller && (offset != 0.f)) {
 		const FRotator ControlRotation = Controller->GetControlRotation();
@@ -77,7 +77,7 @@ void AMyCharacter::MoveRight(float offset)
 void AMyCharacter::Turn(float offset)
 {
 	// Move the character forward based on the input offset
-	UE_LOG(LogTemp, Warning, TEXT("Turn called with offset: %f"), offset);
+	//UE_LOG(LogTemp, Warning, TEXT("Turn called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
 	if (Controller && (offset != 0.f)) {
 		AddControllerYawInput(offset);
@@ -87,7 +87,7 @@ void AMyCharacter::Turn(float offset)
 void AMyCharacter::LookUp(float offset)
 {
 	// Move the character forward based on the input offset
-	UE_LOG(LogTemp, Warning, TEXT("LookUp called with offset: %f"), offset);
+	//UE_LOG(LogTemp, Warning, TEXT("LookUp called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
 	if (Controller && (offset != 0.f)) {
 		AddControllerPitchInput(offset);

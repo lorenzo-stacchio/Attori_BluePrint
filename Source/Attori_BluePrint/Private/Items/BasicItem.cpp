@@ -3,6 +3,7 @@
 #include "Items/BasicItem.h"
 #include "GameFramework/Actor.h"
 #include "DrawDebugHelpers.h"  // necessario per le funzioni di debug
+#include "Components/SphereComponent.h"  // necessario per le funzioni di debug
 
 // Sets default values
 ABasicItem::ABasicItem()
@@ -15,6 +16,10 @@ ABasicItem::ABasicItem()
 	//ora assegniamo la mesh al componente root, così da sostituire il componente root di default (che è un SceneComponent)
 
 	RootComponent = ItemMesh;
+
+
+	InnerMesh = CreateDefaultSubobject<USphereComponent>(TEXT("InnerMeshComponent"));
+	InnerMesh->SetupAttachment(RootComponent);
 }
 
 //PLEASE NOTE THAT C++ CODE IS CALLED AFTER BLUEPRINT CODE
@@ -25,6 +30,14 @@ ABasicItem::ABasicItem()
 void ABasicItem::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Register the overlap event
+	InnerMesh->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	InnerMesh->SetCollisionObjectType(ECC_WorldDynamic);
+	InnerMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
+	InnerMesh->SetGenerateOverlapEvents(true);
+	InnerMesh->OnComponentBeginOverlap.AddDynamic(this, &ABasicItem::OnInnerMeshOverlap);
+
 	// Log a message to the output log
 	UE_LOG(LogTemp, Warning, TEXT("Daje (ma da codice)"));
 
@@ -34,9 +47,10 @@ void ABasicItem::BeginPlay()
 		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, TEXT("Daje (ma da codice e sullo schermo)"));
 	}
 
-	SpawnDebug();
-	//ActorTranslation();
+	//SpawnDebug();
+
 	
+
 }
 
 
@@ -48,7 +62,20 @@ void ABasicItem::Tick(float DeltaTime)
 	//To better understand the rotation, you can use the following code
 	
 	//ContinuosRotation(DeltaTime);
-	SpawnDebug();
+	//SpawnDebug();
+}
+
+
+// Overlap event handler
+void ABasicItem::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Overlap detected with %s"), *OtherActor->GetName());
+
+	if (GEngine) {
+		// Display a message on the screen
+
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
+	}
 }
 
 
