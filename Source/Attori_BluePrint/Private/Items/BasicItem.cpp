@@ -37,6 +37,7 @@ void ABasicItem::BeginPlay()
 	InnerMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	InnerMesh->SetGenerateOverlapEvents(true);
 	InnerMesh->OnComponentBeginOverlap.AddDynamic(this, &ABasicItem::OnInnerMeshOverlap);
+	InnerMesh->OnComponentEndOverlap.AddDynamic(this, &ABasicItem::OnInnerMeshOverlapEnd);
 
 	// Log a message to the output log
 	UE_LOG(LogTemp, Warning, TEXT("Daje (ma da codice)"));
@@ -48,9 +49,6 @@ void ABasicItem::BeginPlay()
 	}
 
 	//SpawnDebug();
-
-	
-
 }
 
 
@@ -75,6 +73,15 @@ void ABasicItem::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent, AA
 		// Display a message on the screen
 
 		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
+	}
+}
+
+void ABasicItem::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+	//UE_LOG(LogTemp, Warning, TEXT("Overlap ended with %s"), *OtherActor->GetName());
+	if (GEngine) {
+		// Display a message on the screen
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName());
 	}
 }
 
@@ -121,6 +128,7 @@ void ABasicItem::ActorTranslation() {
 	FRotator NewRotation = FRotator(0.0f, 90.0f, 0.0f); // Pitch, Yaw, Roll
 	SetActorRotation(NewRotation);
 }
+
 
 
 void ABasicItem::ContinuosRotation(float DeltaTime) {
