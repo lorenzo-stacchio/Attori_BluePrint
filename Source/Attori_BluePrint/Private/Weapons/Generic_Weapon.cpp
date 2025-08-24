@@ -2,6 +2,7 @@
 
 
 #include "Weapons/Generic_Weapon.h"
+#include "MyCharacter.h"
 
 //AGeneric_Weapon::AGeneric_Weapon()
 //{
@@ -20,6 +21,14 @@ void AGeneric_Weapon::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponen
 		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName() + " but a weapon");
 	}
 
+	AMyCharacter* actor = Cast<AMyCharacter>(OtherActor);
+	
+	if (actor) {
+	
+		FName weaponSocketName = TEXT("Weapon_Collect");
+		AttachToComponent(actor->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, weaponSocketName);		
+
+	}
 
 }
 
