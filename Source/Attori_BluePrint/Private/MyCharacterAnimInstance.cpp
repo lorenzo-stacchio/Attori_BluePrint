@@ -44,5 +44,7 @@ void UMyCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	//if is falling
 	IsFalling = OwningCharacterMovement->IsFalling();
 
+	CharacterState = OwningCharacter->GetCharacterState();
+
 
 }

@@ -37,7 +37,6 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	FString description;
-
 	
 
 	UPROPERTY(VisibleAnywhere)

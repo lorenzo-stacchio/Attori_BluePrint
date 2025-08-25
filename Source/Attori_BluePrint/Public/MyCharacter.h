@@ -4,12 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "CharacterState.h"
 #include "MyCharacter.generated.h"
 
 
 class UCameraComponent;
 class USpringArmComponent;
 class AGeneric_Item;
+
+
+
 
 UCLASS()
 class ATTORI_BLUEPRINT_API AMyCharacter : public ACharacter
@@ -29,8 +33,6 @@ protected:
 	void LookUp(float offset);
 	void EKeyPressed();
 
-
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -38,7 +40,11 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
 private:
+
+	CharacterState CharState = CharacterState::ECS_Unequipped;
+
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UCameraComponent* ViewCamera;
 
@@ -52,5 +58,6 @@ private:
 public :
 	FORCEINLINE AGeneric_Item* GetOverlappingItem() const { return OverlappingItem; }
 	FORCEINLINE void SetOverlappingItem(AGeneric_Item* item) { OverlappingItem = item; }
+	FORCEINLINE CharacterState GetCharacterState() const { return CharState; }
 
 };

@@ -88,11 +88,18 @@ void AMyCharacter::Turn(float offset)
 
 void AMyCharacter::EKeyPressed()
 {
+	if (GEngine) {
+		// Display a message on the screen
+
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "CLICKED");
+	}
+
 	AGeneric_Weapon* temp = Cast<AGeneric_Weapon>(GetOverlappingItem());
 	if (temp) {
 		FName weaponSocketName = TEXT("Weapon_Collect");
 		temp->Equip(GetMesh(), weaponSocketName);
 		SetOverlappingItem(nullptr);
+		CharState = CharacterState::ECS_EquippedOneHandedWeapon;
 	}
 }
 

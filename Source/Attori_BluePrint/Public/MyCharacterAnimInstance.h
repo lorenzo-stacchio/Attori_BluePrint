@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "CharacterState.h"
 #include "MyCharacterAnimInstance.generated.h"
 
 class AMyCharacter;
@@ -32,4 +33,9 @@ public:
 
 	UPROPERTY(BlueprintReadOnly, Category = "Movement")
 	bool IsFalling;
+
+	UPROPERTY(BlueprintReadOnly, Category = "Movement | Character State")
+	//CharacterState CharacterState;
+	TEnumAsByte<CharacterState> CharacterState;
+
 };
