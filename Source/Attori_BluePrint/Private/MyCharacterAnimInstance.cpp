@@ -46,5 +46,20 @@ void UMyCharacterAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	CharacterState = OwningCharacter->GetCharacterState();
 
+}
 
+
+void UMyCharacterAnimInstance::AnimNotify_AttackEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation)
+{
+	if (MeshComp) {
+		UMyCharacterAnimInstance* AnimInstance = Cast<UMyCharacterAnimInstance>(MeshComp->GetAnimInstance());
+		if (AnimInstance && AnimInstance->OwningCharacter) {
+			AnimInstance->OwningCharacter->SetAttackStateState(AttackState::ECS_Unoccupied);
+		}
+	}
+
+	if (GEngine) {
+		// Display a message on the screen
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "Attack Ended");
+	}
 }

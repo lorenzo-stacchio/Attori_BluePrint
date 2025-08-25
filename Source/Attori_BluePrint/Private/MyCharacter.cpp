@@ -8,6 +8,7 @@
 #include "Weapons/Generic_Weapon.h"
 #include "Items/Generic_Item.h"
 #include "MyCharacterAnimInstance.h"
+#include "CharacterState.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -109,11 +110,17 @@ void AMyCharacter::Attack()
 	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
 	
 	if (AnimInstance && CharState == CharacterState::ECS_EquippedOneHandedWeapon) {
-		AnimInstance->Montage_Play(AttackMontage);
+		if (AttState == AttackState::ECS_Unoccupied && CharState == CharacterState::ECS_EquippedOneHandedWeapon)
+		{
+			AttState = AttackState::ECS_Attacking;
+			AnimInstance->Montage_Play(AttackMontage);
+		}
+
 	}
 
-
+	
 }
+
 
 
 void AMyCharacter::LookUp(float offset)
@@ -143,6 +150,16 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AMyCharacter::Attack);
 
 }
+
+void AMyCharacter::AttackEnd()
+{
+	AttState = AttackState::ECS_Unoccupied;
+	if (GEngine) {
+		// Display a message on the screen
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "Attack Ended");
+	}
+}
+
 
 
 

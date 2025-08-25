@@ -41,10 +41,15 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION(BlueprintCallable)
+	void AttackEnd();
+
 
 private:
 
 	CharacterState CharState = CharacterState::ECS_Unequipped;
+
+	AttackState AttState = AttackState::ECS_Unoccupied;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UCameraComponent* ViewCamera;
@@ -63,5 +68,7 @@ public:
 	FORCEINLINE AGeneric_Item* GetOverlappingItem() const { return OverlappingItem; }
 	FORCEINLINE void SetOverlappingItem(AGeneric_Item* item) { OverlappingItem = item; }
 	FORCEINLINE CharacterState GetCharacterState() const { return CharState; }
+	
+	FORCEINLINE void SetAttackStateState(AttackState state) { AttState = state; }
 
 };

@@ -20,6 +20,8 @@ public:
 	virtual void NativeInitializeAnimation() override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds) override;
 
+	void AnimNotify_AttackEnd(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation);
+
 	UPROPERTY(BlueprintReadOnly)
 	AMyCharacter* OwningCharacter;
 
