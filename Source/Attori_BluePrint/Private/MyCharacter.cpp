@@ -7,6 +7,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Weapons/Generic_Weapon.h"
 #include "Items/Generic_Item.h"
+#include "MyCharacterAnimInstance.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -103,6 +104,16 @@ void AMyCharacter::EKeyPressed()
 	}
 }
 
+void AMyCharacter::Attack()
+{
+	UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance();
+	
+	if (AnimInstance && CharState == CharacterState::ECS_EquippedOneHandedWeapon) {
+		AnimInstance->Montage_Play(AttackMontage);
+	}
+
+
+}
 
 
 void AMyCharacter::LookUp(float offset)
@@ -128,6 +139,8 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("EKeyPressed", IE_Pressed, this, &AMyCharacter::EKeyPressed);
+
+	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AMyCharacter::Attack);
 
 }
 

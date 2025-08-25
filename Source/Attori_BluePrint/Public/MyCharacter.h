@@ -32,6 +32,7 @@ protected:
 	void Turn(float offset);
 	void LookUp(float offset);
 	void EKeyPressed();
+	void Attack();
 
 public:	
 	// Called every frame
@@ -54,8 +55,11 @@ private:
 	UPROPERTY(VisibleInstanceOnly, Category = "Components")
 	AGeneric_Item* OverlappingItem;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Montages")
+	UAnimMontage* AttackMontage;
 
-public :
+
+public:
 	FORCEINLINE AGeneric_Item* GetOverlappingItem() const { return OverlappingItem; }
 	FORCEINLINE void SetOverlappingItem(AGeneric_Item* item) { OverlappingItem = item; }
 	FORCEINLINE CharacterState GetCharacterState() const { return CharState; }
