@@ -3,6 +3,7 @@
 
 #include "Items/Generic_Item.h"
 #include "Components/SphereComponent.h"  // necessario per le funzioni di debug
+#include "MyCharacter.h"  // necessario per le funzioni di debug
 
 // Sets default values
 AGeneric_Item::AGeneric_Item()
@@ -41,6 +42,13 @@ void AGeneric_Item::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent,
 
 		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
 	}
+
+	// Cast the OtherActor to your character class
+	AMyCharacter* actor = Cast<AMyCharacter>(OtherActor);
+	if (actor) {
+		actor->SetOverlappingItem(this);
+	}
+
 }
 
 void AGeneric_Item::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
@@ -50,6 +58,12 @@ void AGeneric_Item::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedCompone
 		// Display a message on the screen
 		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName());
 	}
+
+	AMyCharacter* actor = Cast<AMyCharacter>(OtherActor);
+	if (actor) {
+		actor->SetOverlappingItem(nullptr);
+	}
+
 }
 
 

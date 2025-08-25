@@ -9,7 +9,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
-
+class AGeneric_Item;
 
 UCLASS()
 class ATTORI_BLUEPRINT_API AMyCharacter : public ACharacter
@@ -27,6 +27,8 @@ protected:
 	void MoveRight(float offset);
 	void Turn(float offset);
 	void LookUp(float offset);
+	void EKeyPressed();
+
 
 
 public:	
@@ -42,5 +44,13 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	USpringArmComponent* SpringArmComp;
+
+	UPROPERTY(VisibleInstanceOnly, Category = "Components")
+	AGeneric_Item* OverlappingItem;
+
+
+public :
+	FORCEINLINE AGeneric_Item* GetOverlappingItem() const { return OverlappingItem; }
+	FORCEINLINE void SetOverlappingItem(AGeneric_Item* item) { OverlappingItem = item; }
 
 };

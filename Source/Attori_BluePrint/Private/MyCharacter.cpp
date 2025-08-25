@@ -5,6 +5,8 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Weapons/Generic_Weapon.h"
+#include "Items/Generic_Item.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -84,6 +86,18 @@ void AMyCharacter::Turn(float offset)
 	}
 }
 
+void AMyCharacter::EKeyPressed()
+{
+	AGeneric_Weapon* temp = Cast<AGeneric_Weapon>(GetOverlappingItem());
+	if (temp) {
+		FName weaponSocketName = TEXT("Weapon_Collect");
+		temp->Equip(GetMesh(), weaponSocketName);
+		SetOverlappingItem(nullptr);
+	}
+}
+
+
+
 void AMyCharacter::LookUp(float offset)
 {
 	// Move the character forward based on the input offset
@@ -106,6 +120,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis("Turn", this, &AMyCharacter::Turn);
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("EKeyPressed", IE_Pressed, this, &AMyCharacter::EKeyPressed);
 
 }
 
