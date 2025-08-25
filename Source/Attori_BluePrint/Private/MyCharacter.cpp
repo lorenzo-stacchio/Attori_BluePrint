@@ -98,6 +98,8 @@ void AMyCharacter::EKeyPressed()
 
 	AGeneric_Weapon* temp = Cast<AGeneric_Weapon>(GetOverlappingItem());
 	if (temp) {
+
+
 		FName weaponSocketName = TEXT("Weapon_Collect");
 		temp->Equip(GetMesh(), weaponSocketName);
 		SetOverlappingItem(nullptr);

@@ -66,9 +66,23 @@ void AGeneric_Item::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedCompone
 
 }
 
+void AGeneric_Item::TransformSin(float DeltaTime)
+{
+	FVector NewLocation = GetActorLocation();
+	float RunningTime = GetWorld()->GetTimeSeconds();
+	float DeltaHeight = (FMath::Sin(RunningTime + DeltaTime) - FMath::Sin(RunningTime));
+	NewLocation.Z += DeltaHeight * 20.0f;       //Scale our height by a factor of 20
+	SetActorLocation(NewLocation);
+}
+
 
 // Called every frame
 void AGeneric_Item::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	
+	if (itemState == ItemState::EIS_floating) {
+		TransformSin(DeltaTime);
+	}
+
 }

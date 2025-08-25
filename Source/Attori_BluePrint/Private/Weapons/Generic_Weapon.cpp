@@ -13,6 +13,7 @@
 void AGeneric_Weapon::Equip(USceneComponent* InParent, FName InSocketName)
 {
 	AttachToComponent(InParent, FAttachmentTransformRules::SnapToTargetNotIncludingScale, InSocketName);
+	SetItemState(ItemState::EIS_Equipped);
 
 }
 

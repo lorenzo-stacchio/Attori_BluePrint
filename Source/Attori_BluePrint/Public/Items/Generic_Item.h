@@ -6,6 +6,14 @@
 #include "GameFramework/Actor.h"
 #include "Generic_Item.generated.h"
 
+
+enum ItemState:uint8 {
+	EIS_Pickup,
+	EIS_Equipped,
+	EIS_floating,
+};
+
+
 UCLASS()
 class ATTORI_BLUEPRINT_API AGeneric_Item : public AActor
 {
@@ -33,6 +41,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* ItemMesh;
 
+	void TransformSin(float DeltaTime);
+
+	void SetItemState(ItemState state) { itemState = state; };
+
 private:
 
 	UPROPERTY(VisibleAnywhere)
@@ -41,5 +53,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	class USphereComponent* InnerMesh;
+
+	ItemState itemState = ItemState::EIS_floating;
+
 
 };
