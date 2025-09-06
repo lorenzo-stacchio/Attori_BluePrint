@@ -12,10 +12,23 @@
 
 void AGeneric_Weapon::Equip(USceneComponent* InParent, FName InSocketName)
 {
+
 	AttachToComponent(InParent, FAttachmentTransformRules::SnapToTargetNotIncludingScale, InSocketName);
 	SetItemState(ItemState::EIS_Equipped);
 
+
 }
+
+void AGeneric_Weapon::Unequip()
+{
+	//DisplayDebug.Log("Weapon Unequipped");
+	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "Weapon Unequipped");
+	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
+	SetItemState(ItemState::EIS_floating);
+	// Zero out rotation in world space
+	SetActorRotation(FRotator::ZeroRotator);
+}
+
 
 
 void AGeneric_Weapon::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)

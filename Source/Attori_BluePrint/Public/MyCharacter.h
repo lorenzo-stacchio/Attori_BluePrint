@@ -11,7 +11,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class AGeneric_Item;
-
+class AGeneric_Weapon;
 
 
 
@@ -32,6 +32,7 @@ protected:
 	void Turn(float offset);
 	void LookUp(float offset);
 	void EKeyPressed();
+	void QKeyPressed();
 	void Attack();
 
 public:	
@@ -62,6 +63,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Montages")
 	UAnimMontage* AttackMontage;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapons")
+	AGeneric_Weapon* WeaponHeld;
 
 
 public:

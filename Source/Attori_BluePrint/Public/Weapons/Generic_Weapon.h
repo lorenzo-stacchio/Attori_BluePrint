@@ -17,6 +17,8 @@ class ATTORI_BLUEPRINT_API AGeneric_Weapon : public AGeneric_Item
 
 public:
 	void Equip(USceneComponent* InParent, FName InSocketName);
+	void Unequip();
+
 
 
 protected:

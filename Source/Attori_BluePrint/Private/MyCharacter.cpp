@@ -52,6 +52,7 @@ void AMyCharacter::Tick(float DeltaTime)
 
 void AMyCharacter::MoveForward(float offset)
 {
+	if (AttState == AttackState::ECS_Attacking) return;
 	// Move the character forward based on the input offset
 	//UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
@@ -66,6 +67,8 @@ void AMyCharacter::MoveForward(float offset)
 
 void AMyCharacter::MoveRight(float offset)
 {
+	if (AttState == AttackState::ECS_Attacking) return;
+
 	// Move the character forward based on the input offset
 	//UE_LOG(LogTemp, Warning, TEXT("MoveForward called with offset: %f"), offset);
 	// Check if the Controller is valid and if the offset is not zero
@@ -90,11 +93,11 @@ void AMyCharacter::Turn(float offset)
 
 void AMyCharacter::EKeyPressed()
 {
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "CLICKED");
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "CLICKED");
+	//}
 
 	AGeneric_Weapon* temp = Cast<AGeneric_Weapon>(GetOverlappingItem());
 	if (temp) {
@@ -104,6 +107,7 @@ void AMyCharacter::EKeyPressed()
 		temp->Equip(GetMesh(), weaponSocketName);
 		SetOverlappingItem(nullptr);
 		CharState = CharacterState::ECS_EquippedOneHandedWeapon;
+		WeaponHeld = temp;
 	}
 }
 
@@ -136,6 +140,31 @@ void AMyCharacter::LookUp(float offset)
 }
 
 
+
+void AMyCharacter::QKeyPressed()
+{
+	if (GEngine) {
+		// Display a message on the screen
+
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "QKeyPressed");
+		//GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, *UEnum::GetValueAsString(CharState));
+	}
+
+	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, *UEnum::GetValueAsString(CharState));
+
+	if (CharState == CharacterState::ECS_Unequipped) return;
+
+	if (AttState == AttackState::ECS_Attacking) return;
+
+	if (CharState == CharacterState::ECS_EquippedOneHandedWeapon) {
+		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "IN EQUIPPED QKEY");
+		WeaponHeld->Unequip();
+		WeaponHeld = nullptr;
+	}
+
+}
+
+
 // Called to bind functionality to input
 void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -148,6 +177,7 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("EKeyPressed", IE_Pressed, this, &AMyCharacter::EKeyPressed);
+	PlayerInputComponent->BindAction("QKeyPressed", IE_Pressed, this, &AMyCharacter::QKeyPressed);
 
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AMyCharacter::Attack);
 
