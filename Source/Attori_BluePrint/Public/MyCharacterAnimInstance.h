@@ -10,6 +10,7 @@
 class AMyCharacter;
 class UCharacterMovementComponent;
 
+
 UCLASS()
 class ATTORI_BLUEPRINT_API UMyCharacterAnimInstance : public UAnimInstance
 {
