@@ -42,11 +42,11 @@ void ABasicItem::BeginPlay()
 	// Log a message to the output log
 	UE_LOG(LogTemp, Warning, TEXT("Daje (ma da codice)"));
 
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, TEXT("Daje (ma da codice e sullo schermo)"));
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, TEXT("Daje (ma da codice e sullo schermo)"));
+	//}
 
 	//SpawnDebug();
 }
@@ -69,20 +69,20 @@ void ABasicItem::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent, AA
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Overlap detected with %s"), *OtherActor->GetName());
 
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
+	//}
 }
 
 void ABasicItem::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Overlap ended with %s"), *OtherActor->GetName());
-	if (GEngine) {
-		// Display a message on the screen
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName());
-	}
+	//if (GEngine) {
+	//	// Display a message on the screen
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName());
+	//}
 }
 
 

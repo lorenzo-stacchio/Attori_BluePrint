@@ -1,0 +1,64 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Enemy.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/CapsuleComponent.h"
+
+// Sets default values
+AEnemy::AEnemy()
+{
+ 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
+	GetMesh()->SetCollisionObjectType(ECollisionChannel::ECC_WorldDynamic);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Visibility,
+		ECollisionResponse::ECR_Block);
+	GetMesh()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera,
+		ECollisionResponse::ECR_Ignore);
+	GetMesh()->SetGenerateOverlapEvents(true);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera,
+		ECollisionResponse::ECR_Ignore);
+
+	NameText = CreateDefaultSubobject<UTextRenderComponent>(TEXT("Damage"));
+	NameText->SetupAttachment(RootComponent);
+}
+
+
+void AEnemy::GetHit() {
+	if(GEngine) {
+		GEngine->AddOnScreenDebugMessage(-1, 3, FColor(255, 0, 0),
+			TEXT("Enemy Hit"));
+	}
+	NameText->SetText(FText::FromString(TEXT("Hitted")));
+}
+
+void AEnemy::HitEnd() {
+	if (GEngine) {
+		GEngine->AddOnScreenDebugMessage(-1, 3, FColor(255, 0, 0),
+			TEXT("HIT END"));
+	}
+	NameText->SetText(FText::FromString(TEXT("")));
+}
+
+
+// Called when the game starts or when spawned
+void AEnemy::BeginPlay()
+{
+	Super::BeginPlay();
+	
+}
+
+// Called every frame
+void AEnemy::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+
+// Called to bind functionality to input
+void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+}
+

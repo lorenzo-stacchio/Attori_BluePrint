@@ -143,14 +143,14 @@ void AMyCharacter::LookUp(float offset)
 
 void AMyCharacter::QKeyPressed()
 {
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "QKeyPressed");
-		//GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, *UEnum::GetValueAsString(CharState));
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "QKeyPressed");
+	//	//GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, *UEnum::GetValueAsString(CharState));
+	//}
 
-	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, *UEnum::GetValueAsString(CharState));
+	//GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, *UEnum::GetValueAsString(CharState));
 
 	if (CharState == CharacterState::ECS_Unequipped) return;
 

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Items/Generic_Item.h"
+#include "Components/BoxComponent.h"
 #include "Generic_Weapon.generated.h"
 
 /**
@@ -18,6 +19,7 @@ class ATTORI_BLUEPRINT_API AGeneric_Weapon : public AGeneric_Item
 public:
 	void Equip(USceneComponent* InParent, FName InSocketName);
 	void Unequip();
+	AGeneric_Weapon();
 
 
 
@@ -29,5 +31,7 @@ protected:
 	void OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, 
 		int32 OtherBodyIndex) override;
 
-
+private:
+	UPROPERTY(VisibleAnywhere)
+	UBoxComponent* WeaponBox;
 };

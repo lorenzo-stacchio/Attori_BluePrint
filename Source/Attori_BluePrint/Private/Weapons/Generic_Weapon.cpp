@@ -4,10 +4,12 @@
 #include "Weapons/Generic_Weapon.h"
 #include "MyCharacter.h"
 
-//AGeneric_Weapon::AGeneric_Weapon()
-//{
-//	// You can initialize weapon-specific properties here if needed
-//}
+AGeneric_Weapon::AGeneric_Weapon()
+{
+	// You can initialize weapon-specific properties here if needed
+	WeaponBox = CreateDefaultSubobject<UBoxComponent>(TEXT("box component"));
+	WeaponBox->SetupAttachment(GetRootComponent());
+}
 
 
 void AGeneric_Weapon::Equip(USceneComponent* InParent, FName InSocketName)
@@ -22,7 +24,7 @@ void AGeneric_Weapon::Equip(USceneComponent* InParent, FName InSocketName)
 void AGeneric_Weapon::Unequip()
 {
 	//DisplayDebug.Log("Weapon Unequipped");
-	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "Weapon Unequipped");
+	//GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, "Weapon Unequipped");
 	DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 	SetItemState(ItemState::EIS_floating);
 	// Zero out rotation in world space
@@ -36,11 +38,11 @@ void AGeneric_Weapon::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponen
 	//UE_LOG(LogTemp, Warning, TEXT("Overlap detected with %s"), *OtherActor->GetName());
 	Super::OnInnerMeshOverlap(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName() + " but a weapon");
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName() + " but a weapon");
+	//}
 
 	/*AMyCharacter* actor = Cast<AMyCharacter>(OtherActor);
 	
@@ -59,11 +61,11 @@ void AGeneric_Weapon::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedCompo
 {
 	Super::OnInnerMeshOverlapEnd(OverlappedComponent, OtherActor, OtherComp, OtherBodyIndex);
 
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName() + " but a weapon");
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName() + " but a weapon");
+	//}
 }
 
 

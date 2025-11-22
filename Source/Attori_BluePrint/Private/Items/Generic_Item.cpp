@@ -37,11 +37,11 @@ void AGeneric_Item::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent,
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Overlap detected with %s"), *OtherActor->GetName());
 
-	if (GEngine) {
-		// Display a message on the screen
+	//if (GEngine) {
+	//	// Display a message on the screen
 
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
-	}
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Red, OtherActor->GetName());
+	//}
 
 	// Cast the OtherActor to your character class
 	AMyCharacter* actor = Cast<AMyCharacter>(OtherActor);
@@ -54,10 +54,10 @@ void AGeneric_Item::OnInnerMeshOverlap(UPrimitiveComponent* OverlappedComponent,
 void AGeneric_Item::OnInnerMeshOverlapEnd(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Overlap ended with %s"), *OtherActor->GetName());
-	if (GEngine) {
-		// Display a message on the screen
-		GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName());
-	}
+	//if (GEngine) {
+	//	// Display a message on the screen
+	//	GEngine->AddOnScreenDebugMessage(-1, 25.f, FColor::Blue, OtherActor->GetName());
+	//}
 
 	AMyCharacter* actor = Cast<AMyCharacter>(OtherActor);
 	if (actor) {
